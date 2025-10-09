@@ -7,10 +7,14 @@
 ---
 
 # ❓ Why do we create this repo?
-*This repo is created for accompanying the publication of **"CottonSim: Development of an autonomous visual-guided robotic cotton-picking system in the Gazebo"** (arXiv:2505.05317). [📄 arXiv Link](https://arxiv.org/abs/2505.05317)*
+# CottonSim: A vision-guided autonomous robotic system for cotton harvesting in Gazebo simulation
 
-📢 This paper has been **accepted in *Computers and Electronics in Agriculture***.  
-Details and the official publication link will be added soon.
+This repository accompanies the publication:
+
+**CottonSim: A vision-guided autonomous robotic system for cotton harvesting in Gazebo simulation**  
+Published in *Computers and Electronics in Agriculture* (2025)  
+📄 [ScienceDirect Link](https://www.sciencedirect.com/science/article/pii/S0168169925010695)
+
 
 ---
 
