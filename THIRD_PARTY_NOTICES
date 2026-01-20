@@ -1,0 +1,14 @@
+Third-Party Notices
+
+This project includes or is derived in part from the following open-source repositories:
+
+1) cpr_gazebo (Clearpath Robotics)
+   Repository: https://github.com/clearpathrobotics/cpr_gazebo
+   License: See upstream repository license file.
+
+2) husky (Husky Robot / Clearpath Robotics and contributors)
+   Repository: https://github.com/husky/husky
+   License: See upstream repository license file.
+
+Portions of this software were developed and contributed through research and development activities at
+Mississippi State University, with additional integrations and modifications by the project author(s).
