@@ -48,6 +48,7 @@ Cotton is a major cash crop in the United States, with the country being a leadi
 ├── Images/                  # Example images of the environment
 ├── Trained_weights/         # Trained weights for the cotton boll detection and the scene segmentation
 ├── Videos/                  # Sample navigation videos mentioned in the manuscript
+├── requirements.txt # Basic libraries installation
 └── README.md
 
 ```
