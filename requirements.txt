@@ -1,0 +1,13 @@
+numpy>=1.23,<2.0
+opencv-python>=4.7
+pillow>=9.0
+pyyaml>=6.0
+matplotlib>=3.6
+scipy>=1.9
+imutils>=0.5.4
+tqdm>=4.64
+requests>=2.27
+prettytable>=3.0
+catkin-pkg>=1.0
+empy>=3.3
+ultralytics>=8.1
