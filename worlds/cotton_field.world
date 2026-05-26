@@ -1,0 +1,198 @@
+<?xml version="1.0" ?>
+<sdf version="1.7">
+  <!-- Cotton Field Main World - 日间棉花田仿真场景 -->
+  <!-- 棉花种植无人机智巡仿真系统 -->
+  <world name="cotton_field_world">
+
+    <!-- 物理插件 -->
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+
+    <!-- 全局光源 -->
+    <scene>
+      <ambient>0.6 0.6 0.6 1</ambient>
+      <background>0.7 0.8 1.0 1</background>
+      <shadows>true</shadows>
+      <grid>true</grid>
+      <origin_visual>false</origin_visual>
+    </scene>
+
+    <!-- 太阳光 -->
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>100 0 200 0 0 0</pose>
+      <diffuse>0.9 0.9 0.8 1</diffuse>
+      <specular>0.1 0.1 0.1 1</specular>
+      <attenuation range="1000"/>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <!-- 环境光 -->
+    <light type="ambient" name="ambient_light">
+      <diffuse>0.4 0.4 0.45 1</diffuse>
+      <specular>0.1 0.1 0.1 1</specular>
+    </light>
+
+    <!-- 地面 - 农田地形 -->
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="ground_link">
+        <pose>0 0 -0.01 0 0 0</pose>
+        <collision name="ground_collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>500 500</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="ground_visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>500 500</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.35 0.55 0.15 1</ambient>
+            <diffuse>0.4 0.6 0.2 1</diffuse>
+            <specular>0.0 0.0 0.0 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- 棉花田块区域模型 -->
+    <model name="cotton_field_zone_1">
+      <static>true</static>
+      <pose>0 0 0 0 0 0</pose>
+      <link name="field_link">
+        <!-- 田埂 -->
+        <visual name="ridge_visual">
+          <geometry>
+            <box>
+              <size>80 0.5 0.15</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.45 0.2 1</ambient>
+            <diffuse>0.6 0.5 0.25 1</diffuse>
+          </material>
+          <pose>0 10 0.075 0 0 0</pose>
+        </visual>
+        <visual name="ridge_visual_2">
+          <geometry>
+            <box>
+              <size>80 0.5 0.15</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.45 0.2 1</ambient>
+            <diffuse>0.6 0.5 0.25 1</diffuse>
+          </material>
+          <pose>0 -10 0.075 0 0 0</pose>
+        </visual>
+        <visual name="ridge_visual_3">
+          <geometry>
+            <box>
+              <size>0.5 20 0.15</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.45 0.2 1</ambient>
+            <diffuse>0.6 0.5 0.25 1</diffuse>
+          </material>
+          <pose>40 0 0.075 0 0 0</pose>
+        </visual>
+        <visual name="ridge_visual_4">
+          <geometry>
+            <box>
+              <size>0.5 20 0.15</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.45 0.2 1</ambient>
+            <diffuse>0.6 0.5 0.25 1</diffuse>
+          </material>
+          <pose>-40 0 0.075 0 0 0</pose>
+        </visual>
+      </link>
+    </model>
+
+    <!-- 棉花植株模型（多个实例） -->
+    <model name="cotton_plant_row_1">
+      <static>true</static>
+      <link name="link">
+        <!-- 第1列棉花株 -->
+        <pose>-15 5 0 0 0 0</pose>
+        <visual name="plant_visual">
+          <geometry>
+            <mesh>
+              <uri>model://cotton_plant/meshes/plant.dae</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      </link>
+      <plugin name="plant_random_placer" filename="librandom_placer.so">
+        <rows>20</rows>
+        <cols>8</cols>
+        <spacing_x>2.0</spacing_x>
+        <spacing_y>2.5</spacing_y>
+        <seed>42</seed>
+      </plugin>
+    </model>
+
+    <!-- 电线杆障碍物 -->
+    <model name="electric_pole_1">
+      <static>true</static>
+      <include>
+        <uri>model://electric_pole</uri>
+        <pose>25 8 0 0 0 0</pose>
+        <name>pole_1</name>
+      </include>
+    </model>
+
+    <model name="electric_pole_2">
+      <static>true</static>
+      <include>
+        <uri>model://electric_pole</uri>
+        <pose>-30 -5 0 0 0 0</pose>
+        <name>pole_2</name>
+      </include>
+    </model>
+
+    <!-- 灌溉管道 -->
+    <model name="irrigation_main">
+      <static>true</static>
+      <include>
+        <uri>model://irrigation_pipe</uri>
+        <pose>0 -15 0 0 0 0</pose>
+      </include>
+    </model>
+
+    <!-- 坐标系标记 -->
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>-30 -30 40 0 0.5 0.8</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+
+    <!-- Gazebo ROS2 桥接插件 -->
+    <plugin name="gazebo_ros_factory" filename="libgazebo_ros_factory.so"/>
+    <plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so"/>
+
+  </world>
+</sdf>

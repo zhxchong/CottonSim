@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<!-- Irrigation Pipe Model - 灌溉管道Gazebo模型 -->
+<sdf version="1.7">
+  <model name="irrigation_pipe">
+    <static>true</static>
+    <allow_auto_disable>true</allow_auto_disable>
+    <link name="pipe">
+      <!-- 主干管道 -->
+      <collision name="main_pipe_collision">
+        <geometry><cylinder><radius>0.08</radius><length>100</length></cylinder></geometry>
+        <pose>0 0 0.5 0 0 1.5708</pose>
+      </collision>
+      <visual name="main_pipe_visual">
+        <geometry><cylinder><radius>0.08</radius><length>100</length></cylinder></geometry>
+        <pose>0 0 0.5 0 0 1.5708</pose>
+        <material>
+          <ambient>0.2 0.4 0.7 1</ambient>
+          <diffuse>0.25 0.5 0.8 1</diffuse>
+          <specular>0.2 0.2 0.2 1</specular>
+        </material>
+      </visual>
+      <!-- 支管道 -->
+      <collision name="branch_collision">
+        <geometry><cylinder><radius>0.04</radius><length>50</length></cylinder></geometry>
+        <pose>0 0 0.5 1.5708 0 0</pose>
+      </collision>
+      <visual name="branch_visual">
+        <geometry><cylinder><radius>0.04</radius><length>50</length></cylinder></geometry>
+        <pose>0 0 0.5 1.5708 0 0</pose>
+        <material><ambient>0.2 0.4 0.7 1</ambient><diffuse>0.25 0.5 0.8 1</diffuse></material>
+      </visual>
+      <!-- 喷头 -->
+      <collision name="sprinkler_collision">
+        <geometry><sphere><radius>0.06</radius></sphere></geometry>
+        <pose>25 0 0.65 0 0 0</pose>
+      </collision>
+      <visual name="sprinkler_visual">
+        <geometry><sphere><radius>0.06</radius></sphere></geometry>
+        <pose>25 0 0.65 0 0 0</pose>
+        <material><ambient>0.3 0.3 0.3 1</ambient><diffuse>0.4 0.4 0.4 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+</sdf>

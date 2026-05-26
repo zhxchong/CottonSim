@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  terrain.dae - 农田地形 COLLADA模型
+  棉花种植无人机智巡仿真系统
+  100m x 100m 平面地形，含基础纹理坐标
+-->
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <contributor>
+      <author>UAVSim</author>
+      <authoring_tool>Gazebo Terrain Generator</authoring_tool>
+    </contributor>
+    <created>2026-05-25T00:00:00</created>
+    <modified>2026-05-25T00:00:00</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+
+  <library_images/>
+  <library_effects>
+    <effect id="terrain_effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <ambient>
+              <color>0.35 0.55 0.15 1</color>
+            </ambient>
+            <diffuse>
+              <color>0.4 0.6 0.2 1</color>
+            </diffuse>
+            <specular>
+              <color>0 0 0 1</color>
+            </specular>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+
+  <library_geometries>
+    <geometry id="terrain_mesh" name="terrain">
+      <mesh>
+        <!-- 100m x 100m flat plane, 10x10 grid = 121 vertices -->
+        <source id="terrain_positions">
+          <float_array id="terrain_positions_array" count="132">
+            <!-- x y z coordinates for 11x12 grid -->
+            -50 -50 0  -25 -50 0  0 -50 0  25 -50 0  50 -50 0
+            -50 -30 0  -25 -30 0  0 -30 0  25 -30 0  50 -30 0
+            -50 -10 0  -25 -10 0  0 -10 0  25 -10 0  50 -10 0
+            -50  10 0  -25  10 0  0  10 0  25  10 0  50  10 0
+            -50  30 0  -25  30 0  0  30 0  25  30 0  50  30 0
+            -50  50 0  -25  50 0  0  50 0  25  50 0  50  50 0
+            -50 -50 0  -25 -50 0  0 -50 0  25 -50 0  50 -50 0
+            -50 -30 0  -25 -30 0  0 -30 0  25 -30 0  50 -30 0
+            -50 -10 0  -25 -10 0  0 -10 0  25 -10 0  50 -10 0
+            -50  10 0  -25  10 0  0  10 0  25  10 0  50  10 0
+            -50  30 0  -25  30 0  0  30 0  25  30 0  50  30 0
+            -50  50 0  -25  50 0  0  50 0  25  50 0  50  50 0
+          </float_array>
+          <technique_common>
+            <accessor source="#terrain_positions_array" count="44" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+
+        <!-- UV coordinates -->
+        <source id="terrain_texcoords">
+          <float_array id="terrain_texcoords_array" count="88">
+            0 0  1 0  2 0  3 0  4 0
+            0 1  1 1  2 1  3 1  4 1
+            0 2  1 2  2 2  3 2  4 2
+            0 3  1 3  2 3  3 3  4 3
+            0 4  1 4  2 4  3 4  4 4
+            0 5  1 5  2 5  3 5  4 5
+            0 6  1 6  2 6  3 6  4 6
+            0 7  1 7  2 7  3 7  4 7
+          </float_array>
+          <technique_common>
+            <accessor source="#terrain_texcoords_array" count="44" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+
+        <!-- Triangles: 10 rows x 5 cols x 2 = 100 triangles, 300 vertices -->
+        <vertices id="terrain_vertices">
+          <input semantic="POSITION" source="#terrain_positions"/>
+          <input semantic="TEXCOORD" source="#terrain_texcoords"/>
+        </vertices>
+
+        <triangles count="50" material="terrain_material">
+          <!-- Simple flat terrain: 50 quads = 100 triangles -->
+          <!-- Row 1 -->
+          <input semantic="VERTEX" source="#terrain_vertices" offset="0"/>
+          <p>0 1 6 0 6 7 1 2 7 2 7 8 2 3 8 3 8 9 3 4 9 4 9 10</p>
+          <!-- Row 2 -->
+          <p>6 7 12 6 12 13 7 8 13 8 13 14 8 9 14 9 14 15 9 10 15 10 15 16</p>
+          <!-- Row 3 -->
+          <p>12 13 18 12 18 19 13 14 19 14 19 20 14 15 20 15 20 21 15 16 21 16 21 22</p>
+          <!-- Row 4 -->
+          <p>18 19 24 18 24 25 19 20 25 20 25 26 20 21 26 21 26 27 21 22 27 22 27 28</p>
+          <!-- Row 5 -->
+          <p>24 25 30 24 30 31 25 26 31 26 31 32 26 27 32 27 32 33 27 28 33 28 33 34</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+
+  <library_materials>
+    <material id="terrain_material" name="terrain_material">
+      <instance_effect url="#terrain_effect"/>
+    </material>
+  </library_materials>
+
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="terrain" name="terrain" type="NODE">
+        <instance_geometry url="#terrain_mesh">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="terrain_material" target="#terrain_material"/>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>

@@ -1,0 +1,156 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <!-- Cotton Field Night World - 夜间棉花田仿真场景 -->
+  <!-- 棉花种植无人机智巡仿真系统 -->
+  <world name="cotton_field_night_world">
+
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+
+    <!-- 夜间场景配置 -->
+    <scene>
+      <ambient>0.05 0.05 0.08 1</ambient>
+      <background>0.02 0.02 0.05 1</background>
+      <shadows>false</shadows>
+      <grid>on</grid>
+      <sky>
+        <time>23:30</time>
+        <sunrise>6:00</sunrise>
+        <sunset>18:00</sunset>
+      </sky>
+    </scene>
+
+    <!-- 月光 -->
+    <light type="directional" name="moon_light">
+      <cast_shadows>false</cast_shadows>
+      <pose>-50 -50 100 0 0 0</pose>
+      <diffuse>0.3 0.35 0.5 1</diffuse>
+      <specular>0.0 0.0 0.0 1</specular>
+      <direction>-0.5 -0.5 -1</direction>
+      <intensity>0.3</intensity>
+    </light>
+
+    <!-- 无人机探照灯 -->
+    <light type="spot" name="drone_spotlight">
+      <pose>0 0 10 0 1.57 0</pose>
+      <diffuse>0.9 0.95 1.0 1</diffuse>
+      <specular>0.5 0.5 0.5 1</specular>
+      <spot>
+        <inner_angle>0.3</inner_angle>
+        <outer_angle>0.5</outer_angle>
+        <falloff>1.0</falloff>
+      </spot>
+      <attenuation>
+        <range>50</range>
+        <constant>0.5</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>0 0 -1</direction>
+      <intensity>1.5</intensity>
+    </light>
+
+    <!-- 地面 -->
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="ground_link">
+        <pose>0 0 -0.01 0 0 0</pose>
+        <collision name="ground_collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>500 500</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.8</mu>
+                <mu2>0.8</mu2>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="ground_visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>500 500</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.08 0.12 0.05 1</ambient>
+            <diffuse>0.1 0.15 0.08 1</diffuse>
+            <specular>0.0 0.0 0.0 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- 夜间田块（暗色） -->
+    <model name="cotton_field_zone_1">
+      <static>true</static>
+      <link name="field_link">
+        <visual name="ridge_visual">
+          <geometry>
+            <box>
+              <size>80 0.5 0.15</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.2 0.18 0.1 1</ambient>
+            <diffuse>0.25 0.22 0.12 1</diffuse>
+          </material>
+          <pose>0 10 0.075 0 0 0</pose>
+        </visual>
+        <visual name="ridge_visual_2">
+          <geometry>
+            <box>
+              <size>80 0.5 0.15</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.2 0.18 0.1 1</ambient>
+            <diffuse>0.25 0.22 0.12 1</diffuse>
+          </material>
+          <pose>0 -10 0.075 0 0 0</pose>
+        </visual>
+      </link>
+    </model>
+
+    <!-- 电线杆（带警示灯） -->
+    <model name="electric_pole_1">
+      <static>true</static>
+      <include>
+        <uri>model://electric_pole</uri>
+        <pose>25 8 0 0 0 0</pose>
+      </include>
+      <link name="warning_light">
+        <pose>0 0 6.5 0 0 0</pose>
+        <light type="point" name="warning_light">
+          <diffuse>1 0 0 1</diffuse>
+          <intensity>2.0</intensity>
+          <attenuation>
+            <range>20</range>
+            <constant>1.0</constant>
+            <linear>0.05</linear>
+          </attenuation>
+        </light>
+      </link>
+    </model>
+
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>-30 -30 40 0 0.5 0.8</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+
+    <plugin name="gazebo_ros_factory" filename="libgazebo_ros_factory.so"/>
+    <plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so"/>
+
+  </world>
+</sdf>

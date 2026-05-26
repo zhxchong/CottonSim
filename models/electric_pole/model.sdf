@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<!-- Electric Pole Model - 电线杆 Gazebo模型 -->
+<sdf version="1.7">
+  <model name="electric_pole">
+    <static>true</static>
+    <allow_auto_disable>true</allow_auto_disable>
+    <link name="pole">
+      <!-- 水泥杆 -->
+      <collision name="pole_collision">
+        <geometry><cylinder><radius>0.1</radius><length>6</length></cylinder></geometry>
+        <pose>0 0 3 0 0 0</pose>
+      </collision>
+      <visual name="pole_visual">
+        <geometry><cylinder><radius>0.1</radius><length>6</length></cylinder></geometry>
+        <pose>0 0 3 0 0 0</pose>
+        <material>
+          <ambient>0.5 0.5 0.5 1</ambient>
+          <diffuse>0.6 0.6 0.6 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+      <!-- 横担 -->
+      <collision name="crossarm_collision">
+        <geometry><box><size>1.2 0.08 0.08</size></box></geometry>
+        <pose>0 0 6.2 0 0 0</pose>
+      </collision>
+      <visual name="crossarm_visual">
+        <geometry><box><size>1.2 0.08 0.08</size></box></geometry>
+        <pose>0 0 6.2 0 0 0</pose>
+        <material><ambient>0.4 0.3 0.1 1</ambient><diffuse>0.5 0.4 0.2 1</diffuse></material>
+      </visual>
+      <!-- 绝缘子 -->
+      <collision name="insulator_collision">
+        <geometry><cylinder><radius>0.03</radius><length>0.15</length></cylinder></geometry>
+        <pose>0.5 0 6.3 1.5708 0 0</pose>
+      </collision>
+      <visual name="insulator_visual">
+        <geometry><cylinder><radius>0.03</radius><length>0.15</length></cylinder></geometry>
+        <pose>0.5 0 6.3 1.5708 0 0</pose>
+        <material><ambient>0.8 0.2 0.2 1</ambient><diffuse>0.9 0.3 0.3 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+</sdf>
